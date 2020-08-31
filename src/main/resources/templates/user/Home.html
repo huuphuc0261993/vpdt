@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="layout::cssAll"></th:block>
+</head>
+<body>
+<header th:replace="layout::topBar"></header>
+
+<div>
+    <div id="layoutSidenav">
+        <div th:replace="layout::sidebar"></div>
+        <div id="layoutSidenav_content">
+            <form method="post">
+                <input type="button" value="Tạo thông báo">
+            </form>
+            <main>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table mr-1"></i>
+                        Thông báo
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout::bottomBar"></footer>
+
+
+<th:block th:replace="layout::jsAll"></th:block>
+<!--<script type="text/javascript" th:src="@{/js/thongbao.js}"></script>-->
+
+</body>
+
+</html>
