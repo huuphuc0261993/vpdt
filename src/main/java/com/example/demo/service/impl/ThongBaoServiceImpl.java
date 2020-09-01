@@ -18,10 +18,18 @@ public class ThongBaoServiceImpl implements ThongBaoService {
         return thongBaoRepository.findAllByIsDeletedEquals(isDeleted);
     }
 
-
-
     @Override
     public void save(ThongBao thongBao) {
         thongBaoRepository.save(thongBao);
+    }
+
+    @Override
+    public ThongBao findById(Long id) {
+        return thongBaoRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void softDeleted(Long id) {
+        thongBaoRepository.softDeleted(id);
     }
 }

@@ -14,35 +14,40 @@
         <div id="layoutSidenav_content">
 
             <main>
-                <form method="post" th:action="@{/admin/thongbao}" th:object="${thongBao}" id="myform">
-                    <button type="button" class="btn btn-dark pr-5 pl-5 ml-3 mt-3 mb-3" data-toggle="modal" data-target="#exampleModal" style="border-radius: 0">Tạo thông báo</button>
+                <form id="myform">
+
+                    <button type="button" class="btn btn-dark pr-5 pl-5 ml-3 mt-3 mb-3" data-toggle="modal" data-target="#exampleModal" style="border-radius: 0" onclick="thongbao.addNew()">Tạo thông báo</button>
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Tạo Thông báo</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel" th:name="exampleModalLabel"></h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
+                                    <input hidden name="id" id="id" >
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Tiêu đề</label>
-                                        <input th:field="*{tieuDe}" type="text" class="form-control" id="recipient-name">
+                                        <input id="tieuDe" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Nội dung</label>
-                                        <textarea class="form-control" id="message-text" th:field="${thongBao.noiDung}" form="myform"></textarea>
+                                        <textarea class="form-control" id="message-text"></textarea>
                                     </div>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                    <button type="submit" class="btn btn-primary">Tạo</button>
+                                    <button type="button" onclick="thongbao.save()" class="btn btn-primary" id="modal-form-1"></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
+
+
 
                 <div class="card mb-4">
                     <div class="card-header">
@@ -59,7 +64,8 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tBody">
+                                                                <!-- Modal HTML -->
 
                                 </tbody>
                             </table>

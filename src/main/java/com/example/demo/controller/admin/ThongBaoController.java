@@ -25,10 +25,4 @@ public class ThongBaoController {
         return modelAndView;
     }
 
-    @PostMapping(value = "", produces = "application/json;charset=UTF-8")
-    public ModelAndView create(@ModelAttribute("thongBao") ThongBao thongBao) {
-        thongBaoService.save(thongBao);
-        return new ModelAndView("redirect:/admin/thongbao");
-    }
-
 }

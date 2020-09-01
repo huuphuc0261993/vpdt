@@ -23,10 +23,5 @@ public class PhongBanController {
         return modelAndView;
     }
 
-    @PostMapping(value = "", produces = "application/json;charset=UTF-8")
-    public ModelAndView create(@ModelAttribute("phongBan") PhongBan phongBan) {
-        phongBanService.save(phongBan);
-        return new ModelAndView("redirect:/admin/phongban");
-    }
 
 }
