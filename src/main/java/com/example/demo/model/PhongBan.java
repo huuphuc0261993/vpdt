@@ -16,8 +16,10 @@ public class PhongBan {
     private String tenPB;
 
     @OneToMany(mappedBy = "phongBan")
+    @JsonIgnore
     private List<VanBan> vanBans;
     @OneToMany(mappedBy = "phongBan")
+    @JsonIgnore
     private List<NhanVien> nhanViens;
 
     @JsonIgnore

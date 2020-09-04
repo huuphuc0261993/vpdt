@@ -16,6 +16,7 @@ public class LoaiVb {
     private String tenPb;
 
     @OneToMany(mappedBy = "loaiVb")
+    @JsonIgnore
     private List<VanBan> vanBans;
 
     @JsonIgnore

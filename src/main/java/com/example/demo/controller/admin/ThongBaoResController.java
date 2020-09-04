@@ -1,5 +1,6 @@
 package com.example.demo.controller.admin;
 
+import com.example.demo.model.PhongBan;
 import com.example.demo.model.ThongBao;
 import com.example.demo.service.ThongBaoService;
 import org.springframework.beans.factory.annotation.Autowired;

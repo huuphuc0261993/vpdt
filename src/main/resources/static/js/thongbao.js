@@ -54,11 +54,12 @@ thongbao.showTitle = function (){
 }
 
 thongbao.save = function () {
+    var thongbaoObject = {};
+    thongbaoObject.id = $('#id').val();
+    console.log(thongbaoObject.id);
     if ($("id").val() == null) {
-        var thongbaoObject = {};
         thongbaoObject.tieuDe = $('#tieuDe').val();
         thongbaoObject.noiDung = $('#message-text').val();
-        thongbaoObject.id = $('#id').val();
         console.log(thongbao);
         $.ajax({
             url: "http://localhost:8080/api/thongbao/create",
@@ -99,7 +100,7 @@ thongbao.edit = function(id){
         method : "GET",
         dataType : "json",
         success : function(data){
-            console.log(data);
+
             $('#myform')[0].reset();
             // //
             $('#exampleModalLabel').html("Chỉnh sửa thông báo");
@@ -107,6 +108,7 @@ thongbao.edit = function(id){
             $('#id').val(data.id);
             $('#tieuDe').val(data.tieuDe);
             $('#message-text').val(data.noiDung);
+            $('#exampleModal').modal('show');
             // $('#productLine').val(data.productLine.id);
             // $('#id').val(data.id);
 

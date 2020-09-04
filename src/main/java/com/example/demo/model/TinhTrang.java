@@ -16,6 +16,7 @@ public class TinhTrang {
     private String tinhTrang;
 
     @OneToMany(mappedBy = "tinhTrang")
+    @JsonIgnore
     private List<CongViec> congViecs;
 
     @JsonIgnore

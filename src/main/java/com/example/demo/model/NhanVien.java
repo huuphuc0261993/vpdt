@@ -18,12 +18,15 @@ public class NhanVien {
     private String avatar;
 
     @OneToMany (mappedBy = "nhanVien")
+    @JsonIgnore
     private List<HoSo> hoSos;
 
     @OneToMany (mappedBy = "nhanVien")
+    @JsonIgnore
     private List<ChiTiet> chiTiets;
 
     @OneToMany(mappedBy = "nhanVien")
+    @JsonIgnore
     private List<VanBan>vanBans;
 
     @ManyToOne

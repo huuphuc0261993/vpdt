@@ -19,4 +19,9 @@ public class PhongBanSerivceImpl implements PhongBanService {
     public void save(PhongBan phongBan) {
         phongBanRepository.save(phongBan);
     }
+
+    @Override
+    public PhongBan findById(Long id) {
+        return phongBanRepository.findById(id).orElse(null);
+    }
 }

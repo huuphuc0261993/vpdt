@@ -16,6 +16,7 @@ public class NguonVb {
     private String tenNguonVb;
 
     @OneToMany(mappedBy = "nguonVb")
+    @JsonIgnore
     private List<VanBan> vanBans;
 
     @JsonIgnore

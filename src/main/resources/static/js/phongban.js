@@ -1,31 +1,8 @@
-// var thongbao = {}  || thongbao;
-// thongbao.intTable = function(){
-//     $("#layoutSidenav_content").DataTable({
-//         ajax: {
-//             url: 'http://localhost:8080/adminJS/thongbaoJS',
-//             method: "GET",
-//             datatype: "json",
-//             dataSrc: ""
-//         },
-//         columns: [
-//             { data: "noiDung" , name: "noiDung", title: "Noi dung",orderable: true},
-//             { data: "ngayTao", name : "ngayTao" , title: "Ngay tao"},
-//             { data: "id", name : "Action", title : "Action",sortable: false,
-//                 orderable: false ,"render": function ( data, type, row, meta ) {
-//
-//                     var str =  "<a href='javascript:;' title='edit thongBao' onclick='thongbao.get("+ data +")'><i class='fa fa-edit'></i></a> " +
-//                         "<a href='javascript:;' title='remove thongBao' onclick='thongbao.delete("+ data +")' ><i class='fa fa-trash'></i></a>"
-//                     return str ;
-//                 }
-//             }
-//         ]
-//     });
-// }
-var phongban = phongban || {} ;
+var phongban = phongban || {}
 phongban.showTitle = function (){
     $.ajax(
         {
-            url: 'http://localhost:8080/adminJS/phongban/text' ,
+            url: 'http://localhost:8080/api/phongban/view' ,
             method: 'GET',
             dataType: 'json',
             contentType: 'application/json',
@@ -38,8 +15,7 @@ phongban.showTitle = function (){
                 $.each(data, function( index, value ) {
                     t.row.add( [
                         value.tenPB,
-                        "<i class='far fa-edit ' style='margin-right: 10px'></i>"
-                        ,
+                        "<i class='far fa-edit ' title='Chỉnh sửa phòng ban' style='margin-right: 10px' onclick='phongban.edit("+value.mpb+")'></i>",
                     ]).draw();
                 });
 
@@ -50,7 +26,76 @@ phongban.showTitle = function (){
             }
         })
 }
+phongban.save = function () {
+    var phongbanObject = {};
+    phongbanObject.mpb = $('#id').val();
+    phongbanObject.tenPB = $('#tenPB').val();
+    if ($("id").val() === null) {
+        $.ajax({
+            url: 'http://localhost:8080/api/phongban/create',
+            method: 'POST',
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(phongbanObject),
+            success: function (data) {
+                console.log("POST DONE");
+                $('#exampleModal').modal('hide');
+                $('#tBody').empty();
+                $('#dataTable').dataTable().fnClearTable();
+                $('#dataTable').dataTable().fnDestroy();
+                phongban.showTitle();
+            }
+        })
+    } else {
+        $.ajax({
+            url: "http://localhost:8080/api/phongban/edit" ,
+            method: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(phongbanObject),
+            success: function () {
+                $('#exampleModal').modal('hide');
+                $('#tBody').empty();
+                $('#dataTable').dataTable().fnClearTable();
+                $('#dataTable').dataTable().fnDestroy();
+                phongban.showTitle();
 
-$(document).ready(function(){
-    phongban.showTitle();
-});
+            },
+        });
+    }
+}
+phongban.edit = function(mpb){
+    console.log('get :'+ mpb);
+    $.ajax({
+        url : "http://localhost:8080/api/phongban/edit/" + mpb,
+        method : "GET",
+        dataType : "json",
+        success : function(data){
+            console.log(data);
+            $('#myform')[0].reset();
+            // //
+            $('#exampleModalLabel').html("Chỉnh sửa phòng ban");
+            $('#modal-form-1').html("Sửa");
+            $('#id').val(data.mpb);
+            $('#tenPB').val(data.tenPB);
+            $('#exampleModal').modal('show');
+            // $('#productLine').val(data.productLine.id);
+            // $('#id').val(data.id);
+
+        }
+    });
+};
+    phongban.resetForm = function () {
+        $('#myform')[0].reset();
+        $('#tenPB').val('');
+        //
+    }
+    phongban.addNew = function () {
+        $('#exampleModalLabel').html("Tạo Phòng ban");
+        phongban.resetForm();
+        $('#modal-form-1').html("Tạo");
+        $('#exampleModal').modal('show');
+    };
+    $(document).ready(function () {
+        phongban.showTitle();
+    });
