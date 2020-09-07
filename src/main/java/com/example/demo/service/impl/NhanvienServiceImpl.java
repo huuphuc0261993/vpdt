@@ -7,6 +7,8 @@ import com.example.demo.service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NhanvienServiceImpl implements NhanVienService {
     @Autowired
@@ -17,13 +19,20 @@ public class NhanvienServiceImpl implements NhanVienService {
     }
 
     @Override
-    public void listNhanVien(Long phongBan_id) {
-        nhanVienRepository.listNhanVien(phongBan_id);
+    public List<NhanVien> listNhanVien(Long mpb) {
+        return nhanVienRepository.listNhanVien(mpb);
     }
+
 
     @Override
     public NhanVien findById(Long id) {
         return nhanVienRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<NhanVien> nhanVienThucHien(Long mnv, Long phong_ban_id) {
+        return nhanVienRepository.nhanVienThucHien(mnv,phong_ban_id);
+    }
+
 
 }
