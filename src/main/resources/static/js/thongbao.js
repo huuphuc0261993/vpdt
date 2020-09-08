@@ -124,9 +124,10 @@ thongbao.delete = function(id){
                 label: '<i class="fa fa-times"></i> No'
             },
             confirm: {
-                label: '<i class="fa fa-check"></i> Yes'
+                label: '<i class="fa fa-check"></i> Yes',
+                className: 'btn-danger'
             }
-        },
+        }   ,
         callback: function (result) {
             if(result){
                 $.ajax({

@@ -13,5 +13,5 @@ public interface NhanVienService {
     Iterable<NhanVien>findAllByIsDeletedEquals(int isDeleted);
     List<NhanVien> listNhanVien(@Param("mpb")Long mpb);
     NhanVien findById(Long id);
-    List<NhanVien> nhanVienThucHien(@Param("mnv")Long mnv,@Param("phong_ban_id")Long phong_ban_id);
+
 }

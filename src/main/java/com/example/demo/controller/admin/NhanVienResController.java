@@ -26,9 +26,5 @@ public class NhanVienResController {
         List<NhanVien>nhanViens=nhanVienService.listNhanVien(id);
         return nhanViens;
     }
-    @RequestMapping(value = "/{idPhongBan}/{idNhanVien}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-    public List<NhanVien> getListNhanVien(@PathVariable("idPhongBan") long idPhongBan,@PathVariable("idNhanVien") long idNhanVien) {
-        List<NhanVien> listNhanVien = nhanVienService.nhanVienThucHien(idPhongBan,idNhanVien);
-        return listNhanVien;
-    }
+
 }

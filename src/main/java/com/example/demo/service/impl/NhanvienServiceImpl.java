@@ -29,10 +29,7 @@ public class NhanvienServiceImpl implements NhanVienService {
         return nhanVienRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public List<NhanVien> nhanVienThucHien(Long mnv, Long phong_ban_id) {
-        return nhanVienRepository.nhanVienThucHien(mnv,phong_ban_id);
-    }
+
 
 
 }

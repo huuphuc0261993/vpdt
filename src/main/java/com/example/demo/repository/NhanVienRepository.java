@@ -20,8 +20,5 @@ public interface NhanVienRepository extends PagingAndSortingRepository<NhanVien,
     @Query(value = "select nhan_viens.* from phong_bans inner join nhan_viens on phong_bans.mpb = nhan_viens.phong_ban_id  WHERE mpb = :mpb", nativeQuery = true)
     List<NhanVien> listNhanVien(@Param("mpb")Long mpb);
 
-    @Transactional
-    @Modifying
-    @Query(value = "select nhan_viens.* from phong_bans inner join nhan_viens on phong_bans.mpb = nhan_viens.phong_ban_id where mnv =: mnv and phong_ban_id =: phong_ban_id", nativeQuery = true)
-    List<NhanVien> nhanVienThucHien(@Param("mnv")Long mnv,@Param("phong_ban_id")Long phong_ban_id);
+
 }

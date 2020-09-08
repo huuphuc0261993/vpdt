@@ -1,20 +1,21 @@
 var taocongviec = taocongviec || {}
-var phongBanList;
+
+// var phongBanList;
 var nhanVienLamViec = []
-taocongviec.listphongban = function (){
+taocongviec.listphongban = function () {
     $.ajax(
         {
-            url: 'http://localhost:8080/api/phongban/view' ,
+            url: 'http://localhost:8080/api/phongban/view',
             method: 'GET',
             dataType: 'json',
             contentType: 'application/json',
-            success: function (data){
+            success: function (data) {
                 // phongBanList = data;
                 $('#phongBanId').html("<option disabled selected>--/--</option>");
                 // index chỉ mục mảng , value giá trị của phần tử mảng
-                $.each(data, function( index, value ) {
+                $.each(data, function (index, value) {
                     $('#phongBanId').append(
-                        "<option value='" + value.mpb + "' >"  + value.tenPB + "</option>"
+                        "<option value='" + value.mpb + "' >" + value.tenPB + "</option>"
                     );
                 });
             },
@@ -24,22 +25,25 @@ taocongviec.listphongban = function (){
         })
 }
 var nhanVienList;
-taocongviec.phongban = function (element){
-    let idPhongBan= $(element).val();
+taocongviec.phongban = function (element) {
+    let idPhongBan = $(element).val();
     $.ajax(
         {
-            url: 'http://localhost:8080/api/nhanvien/view/'+idPhongBan ,
+            url: 'http://localhost:8080/api/nhanvien/view/' + idPhongBan,
             method: 'GET',
             dataType: 'json',
             contentType: 'application/json',
-            success: function (data){
+            success: function (data) {
                 $('#nhanVienId').html("");
                 // nhanVienList = data;
                 // index chỉ mục mảng , value giá trị của phần tử mảng
-                $.each(data, function( index, value ) {
-                    $('#nhanVienId').append(
-                        "<option value='" + value.mnv + "'>" + value.fullName + "</option>"
-                    );
+                $.each(data, function (index, value) {
+                    if (nhanVienLamViec.indexOf(value.mnv) == -1) {
+                        $('#nhanVienId').append(
+                            "<option value='" + value.mnv + "'>" + value.fullName + "</option>"
+                        );
+                    }
+
                 });
             },
             error: function (e) {
@@ -47,53 +51,92 @@ taocongviec.phongban = function (element){
             }
         })
 }
+var inNhavien=[];
+taocongviec.showNhanVien = function (){
+    taocongviec.phongban($('#phongBanId'));
+    let t = $('#dataTable').DataTable();
+    t.clear().draw();
+    $.each(inNhavien, function (index, value) {
+        console.log(index + ","+value);
+        t.row.add([
+            value[1],
+            value[2],
+            `<input type='radio' name='iMain' value='${value[0]}'>`,
+            `<span onclick='taocongviec.xoa(${index})'><i class='far fa-trash-alt' ></i></span>`
+        ]).draw();
 
-taocongviec.them = function (){
+    });
+}
+//kiểm tra
+// document.querySelectorAll("input[name='iMain']")[0].checked
+taocongviec.them = function () {
     let idPhongBan = $('#phongBanId').val();
+    let phongban = $('#phongBanId').find(`option[value='${idPhongBan}']`).text();
     let idNhanVien = $('#nhanVienId').val();
+    let nhanvien = $('#nhanVienId').find(`option[value='${idNhanVien}']`).text();
 
-    $.ajax(
-        {
-            url: 'http://localhost:8080/api/nhanvien/'+idPhongBan+'/'+idNhanVien ,
-            method: 'GET',
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data){
-                console.log(data);
-                let t = $('#tBody').DataTable({
-                    responsive: true
-                });
-                // index chỉ mục mảng , value giá trị của phần tử mảng
-                $.each(data, function( index, value ) {
-                    t.row.add( [
-                        value.tenPB,
-                        value.fullName,
-                        "<input type='checkbox' class='far fa-trash-alt '>",
-                        "<i class='far fa-edit ' title='Chỉnh sửa thông báo' style='margin-right: 10px' onclick='thongbao.edit("+value.id+")'></i>" +
-                        "<i class='far fa-trash-alt ' onclick='thongbao.delete("+ value.id +")'></i>"
-                        ,
-                    ]).draw();
-                });
+    if (nhanvien == "") {
+        alert("Thêm không thành công")
+    } else {
+        nhanVienLamViec.push(+idNhanVien);
+        inNhavien.push([+idNhanVien,phongban,nhanvien]);
 
+        taocongviec.showNhanVien();
 
+    }
+
+    // $.ajax(
+    //     {
+    //         url: 'http://localhost:8080/api/nhanvien/' + idPhongBan + '/' + idNhanVien,
+    //         method: 'GET',
+    //         dataType: 'json',
+    //         contentType: 'application/json',
+    //         success: function (data) {
+    //             let t = $('#dataTable').DataTable();
+    //             // index chỉ mục mảng , value giá trị của phần tử mảng
+    //             $.each(data, function (index, value) {
+    //                 t.row.add([
+    //                     value.phongBan.tenPB,
+    //                     value.fullName,
+    //                     "<input type='checkbox'>",
+    //                     "<i class='far fa-trash-alt' onclick='taocongviec.xoa()'></i>"
+    //                 ]).draw();
+    //
+    //             });
+    //         },
+    //         error: function (e) {
+    //             console.log(e.message);
+    //         }
+    //     })
+}
+
+taocongviec.xoa = function (index) {
+    bootbox.confirm({
+        title: "Xóa Thông Báo",
+        message: "Bạn có muốn xóa ko?",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> No'
             },
-            error: function (e) {
-                console.log(e.message);
+            confirm: {
+                label: '<i class="fa fa-check"></i> Yes'
             }
-        })
-   // let nhanVien= nhanVienList[$('#nhanVienId').val()];
-   // console.log(nhanVien);
-   // let phongBan = phongBanList[$('#phongBanId').val()];
-   // console.log(phongBan);
-   //  let viecLam = {
-   //      tenPhongBan : phongBan.tenPB,
-   //      tenNhanVien: nhanVien.fullName
-   //  }
-   //  nhanVienLamViec.push(viecLam);
-   //  console.log(nhanVienLamViec);
+        }   ,
+        callback: function (result) {
+            if(result){
+                nhanVienLamViec.splice(index,1);
+                inNhavien.splice(index,1);
+                taocongviec.showNhanVien();
+            }
+        }
+    });
 
 }
+
 $(document).ready(function () {
+
     taocongviec.listphongban();
+
+
     // taocongviec.nhanvien();
 });
