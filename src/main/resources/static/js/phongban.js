@@ -2,7 +2,7 @@ var phongban = phongban || {}
 phongban.showTitle = function (){
     $.ajax(
         {
-            url: 'http://localhost:8080/api/phongban/view' ,
+            url: urlPathHost+'/api/phongban/view' ,
             method: 'GET',
             dataType: 'json',
             contentType: 'application/json',
@@ -32,7 +32,7 @@ phongban.save = function () {
     phongbanObject.tenPB = $('#tenPB').val();
     if ($("id").val() === null) {
         $.ajax({
-            url: 'http://localhost:8080/api/phongban/create',
+            url: urlPathHost+'/api/phongban/create',
             method: 'POST',
             dataType: 'JSON',
             contentType: 'application/json',
@@ -48,7 +48,7 @@ phongban.save = function () {
         })
     } else {
         $.ajax({
-            url: "http://localhost:8080/api/phongban/edit" ,
+            url: urlPathHost+"/api/phongban/edit" ,
             method: "PUT",
             dataType: "json",
             contentType: "application/json",
@@ -67,7 +67,7 @@ phongban.save = function () {
 phongban.edit = function(mpb){
     console.log('get :'+ mpb);
     $.ajax({
-        url : "http://localhost:8080/api/phongban/edit/" + mpb,
+        url : urlPathHost+"/api/phongban/edit/" + mpb,
         method : "GET",
         dataType : "json",
         success : function(data){

@@ -21,26 +21,26 @@
 //         ]
 //     });
 // }
-var thongbao = thongbao || {} ;
-thongbao.showTitle = function (){
+var thongbao = thongbao || {};
+thongbao.showTitle = function () {
     $.ajax(
         {
-            url: 'http://localhost:8080/api/thongbao/view' ,
+            url: urlPathHost+'/api/thongbao/view',
             method: 'GET',
             dataType: 'json',
             contentType: 'application/json',
-            success: function (data){
+            success: function (data) {
                 console.log(data);
                 let t = $('#dataTable').DataTable({
                     responsive: true
                 });
                 // index chỉ mục mảng , value giá trị của phần tử mảng
-                $.each(data, function( index, value ) {
-                    t.row.add( [
+                $.each(data, function (index, value) {
+                    t.row.add([
                         value.tieuDe,
                         value.noiDung,
-                        "<i class='far fa-edit ' title='Chỉnh sửa thông báo' style='margin-right: 10px' onclick='thongbao.edit("+value.id+")'></i>" +
-                        "<i class='far fa-trash-alt ' onclick='thongbao.delete("+ value.id +")'></i>"
+                        "<i class='far fa-edit ' title='Chỉnh sửa thông báo' style='margin-right: 10px' onclick='thongbao.edit(" + value.id + ")'></i>" +
+                        "<i class='far fa-trash-alt ' onclick='thongbao.delete(" + value.id + ")'></i>"
                         ,
                     ]).draw();
                 });
@@ -62,7 +62,7 @@ thongbao.save = function () {
         thongbaoObject.noiDung = $('#message-text').val();
         console.log(thongbao);
         $.ajax({
-            url: "http://localhost:8080/api/thongbao/create",
+            url: urlPathHost+"/api/thongbao/create",
             method: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -74,13 +74,11 @@ thongbao.save = function () {
                 $('#dataTable').dataTable().fnClearTable();
                 $('#dataTable').dataTable().fnDestroy();
                 thongbao.showTitle();
-
-
             },
         });
     } else {
         $.ajax({
-            url: "http://localhost:8080/api/thongbao/edit/"+thongbaoObject.id,
+            url: urlPathHost+"/api/thongbao/edit/" + thongbaoObject.id,
             method: "PUT",
             dataType: "json",
             contentType: "application/json",
@@ -93,13 +91,13 @@ thongbao.save = function () {
         });
     }
 }
-thongbao.edit = function(id){
-    console.log('get :'+ id);
+thongbao.edit = function (id) {
+    console.log('get :' + id);
     $.ajax({
-        url : "http://localhost:8080/api/thongbao/edit/" + id,
-        method : "GET",
-        dataType : "json",
-        success : function(data){
+        url: urlPathHost+"/api/thongbao/edit/" + id,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
 
             $('#myform')[0].reset();
             // //
@@ -115,7 +113,7 @@ thongbao.edit = function(id){
         }
     });
 };
-thongbao.delete = function(id){
+thongbao.delete = function (id) {
     bootbox.confirm({
         title: "Xóa Thông Báo",
         message: "Bạn có muốn xóa ko?",
@@ -127,14 +125,14 @@ thongbao.delete = function(id){
                 label: '<i class="fa fa-check"></i> Yes',
                 className: 'btn-danger'
             }
-        }   ,
+        },
         callback: function (result) {
-            if(result){
+            if (result) {
                 $.ajax({
-                    url : "http://localhost:8080/api/thongbao/delete/" + id,
+                    url: urlPathHost+"/api/thongbao/delete/" + id,
                     method: "get",
-                    dataType : "json",
-                    success : function(data){
+                    dataType: "json",
+                    success: function (data) {
                         $('#tBody').empty();
                         $('#dataTable').dataTable().fnClearTable();
                         $('#dataTable').dataTable().fnDestroy();
@@ -145,20 +143,20 @@ thongbao.delete = function(id){
         }
     });
 }
-thongbao.addNew = function(){
+thongbao.addNew = function () {
     $('#exampleModalLabel').html("Tạo Thông báo");
     thongbao.resetForm();
     $('#modal-form-1').html("Tạo");
     $('#exampleModal').modal('show');
 };
 
-thongbao.resetForm =  function(){
+thongbao.resetForm = function () {
     $('#myform')[0].reset();
     $('#tieuDe').val('');
     $('#message-text').val('');
     //
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     thongbao.showTitle();
 });

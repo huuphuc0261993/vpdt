@@ -19,6 +19,7 @@ public class ThongBaoController {
     @GetMapping("")
     public ModelAndView getView() {
         Iterable<ThongBao> thongBaos = thongBaoService.findAllByIsDeletedEquals(0);
+
         ModelAndView modelAndView = new ModelAndView("admin/thongBao/ThongBao");
         modelAndView.addObject("thongBaos", thongBaos);
         modelAndView.addObject("thongBao", new ThongBao());

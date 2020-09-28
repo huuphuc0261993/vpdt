@@ -13,9 +13,21 @@ import java.util.List;
 public class CongViecServiceImpl implements CongViecService {
     @Autowired
     private CongViecRepository congViecRepository;
+
     @Override
-    public Iterable<CongViec> findByIsDeletedEquals(Long id) {
-        return congViecRepository.findByIsDeletedEquals(id);
+    public Iterable<CongViec> findByIsDeletedEquals(int id) {
+        return congViecRepository.findAllByIsDeletedEquals(id);
+    }
+
+    @Override
+    public void save(CongViec congViec) {
+        congViec =congViecRepository.save(congViec);
+
+    }
+
+    @Override
+    public CongViec idCongViec() {
+        return congViecRepository.idCongViec();
     }
 
 

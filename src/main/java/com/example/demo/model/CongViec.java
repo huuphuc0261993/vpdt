@@ -3,29 +3,34 @@ package com.example.demo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 @Entity
 @Table(name = "CongViecs")
 public class CongViec {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotNull
+    @Size(min=2, max=30)
     private String tenCongViec;
     private String noiDung;
-    private int tinhTrang;
+
     private Date ngayBatDau;
     private Date ngayKetThuc;
 
-    @OneToMany(mappedBy = "congViec")
+    @OneToMany(mappedBy = "congViec",cascade=CascadeType.ALL)
     @JsonIgnore
     private List<ChiTiet> chiTietList;
 
     @ManyToOne
     @JoinColumn(name = "tinhTrang_id")
-    private TinhTrang tinhTrangs;
+    private TinhTrang tinhTrang;
 
     @JsonIgnore
     private int isDeleted=0;
@@ -41,6 +46,12 @@ public class CongViec {
     private LocalDate created_at;
     @JsonIgnore
     private String created_by;
+    public CongViec() {
+    }
+
+    public CongViec(Long id) {
+        this.id = id;
+    }
 
     public List<ChiTiet> getChiTietCongViecList() {
         return chiTietList;
@@ -58,16 +69,15 @@ public class CongViec {
         this.chiTietList = chiTietList;
     }
 
-    public TinhTrang getTinhTrangs() {
-        return tinhTrangs;
+    public TinhTrang getTinhTrang() {
+        return tinhTrang;
     }
 
-    public void setTinhTrangs(TinhTrang tinhTrangs) {
-        this.tinhTrangs = tinhTrangs;
+    public void setTinhTrang(TinhTrang tinhTrangs) {
+        this.tinhTrang = tinhTrangs;
     }
 
-    public CongViec() {
-    }
+
 
     public Long getId() {
         return id;
@@ -91,14 +101,6 @@ public class CongViec {
 
     public void setNoiDung(String noiDung) {
         this.noiDung = noiDung;
-    }
-
-    public int getTinhTrang() {
-        return tinhTrang;
-    }
-
-    public void setTinhTrang(int tinhTrang) {
-        this.tinhTrang = tinhTrang;
     }
 
     public Date getNgayBatDau() {

@@ -1,4 +1,4 @@
-package com.example.demo.controller.admin;
+package com.example.demo.controller.admin.rest;
 
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.PhongBan;

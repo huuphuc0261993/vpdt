@@ -12,5 +12,5 @@ public interface ThongBaoService {
     Iterable<ThongBao>findAllByIsDeletedEquals(int isDeleted);
     void save(ThongBao thongBao);
     ThongBao findById(Long id);
-    void softDeleted(@Param("id")Long id);
+//    void softDeleted(@Param("id")Long id);
 }

@@ -1,46 +1,64 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "NhanViens")
 public class NhanVien {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "mnv")
     private Long mnv;
-    private String fullName;
+    private String username;
     private String email;
+    private String password;
+    private String fullName;
     private int phone;
     private String avatar;
+    private String roles="ADMIN";
+    private int enabled = 1;
 
-    @OneToMany (mappedBy = "nhanVien")
+    @OneToMany(mappedBy = "nhanVien")
     @JsonIgnore
     private List<HoSo> hoSos;
 
-    @OneToMany (mappedBy = "nhanVien")
+    @OneToMany(mappedBy = "nhanVien")
     @JsonIgnore
     private List<ChiTiet> chiTiets;
 
     @OneToMany(mappedBy = "nhanVien")
     @JsonIgnore
-    private List<VanBan>vanBans;
+    private List<VanBan> vanBans;
+
+//        @OneToMany(mappedBy = "nhanVien")
+//    @JsonIgnore
+//    private List<RolesDetail> rolesDetails;
+//    @ManyToMany(cascade = CascadeType.MERGE)
+//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "mnv"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roles;
+
 
     @ManyToOne
     @JoinColumn(name = "phongBan_id")
     private PhongBan phongBan;
 
     @JsonIgnore
-    private int isDeleted=0;
+    private int isDeleted = 0;
     @JsonIgnore
     private LocalDate deleted_at;
     @JsonIgnore
     private String deleted_by;
     @JsonIgnore
-    private LocalDate  updated_at;
+    private LocalDate updated_at;
     @JsonIgnore
     private String updated_by;
     @JsonIgnore
@@ -51,14 +69,6 @@ public class NhanVien {
     public NhanVien() {
     }
 
-    public NhanVien(Long mnv, String fullName, String email, int phone, String avatar) {
-        this.mnv = mnv;
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.avatar = avatar;
-    }
-
     public Long getMnv() {
         return mnv;
     }
@@ -67,12 +77,12 @@ public class NhanVien {
         this.mnv = mnv;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -81,6 +91,22 @@ public class NhanVien {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public int getPhone() {
@@ -99,6 +125,22 @@ public class NhanVien {
         this.avatar = avatar;
     }
 
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
+
     public List<HoSo> getHoSos() {
         return hoSos;
     }
@@ -107,11 +149,11 @@ public class NhanVien {
         this.hoSos = hoSos;
     }
 
-    public List<ChiTiet> getChiTietCongViecs() {
+    public List<ChiTiet> getChiTiets() {
         return chiTiets;
     }
 
-    public void setChiTietCongViecs(List<ChiTiet> chiTiets) {
+    public void setChiTiets(List<ChiTiet> chiTiets) {
         this.chiTiets = chiTiets;
     }
 

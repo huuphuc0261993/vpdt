@@ -14,8 +14,8 @@ import java.awt.print.Pageable;
 @Repository
 public interface ThongBaoRepository extends PagingAndSortingRepository<ThongBao,Long> {
     Iterable<ThongBao>findAllByIsDeletedEquals(int isDeleted);
-    @Transactional
-    @Modifying
-    @Query(value = "update thong_baos set is_deleted=1 WHERE id = :id", nativeQuery = true)
-    void softDeleted(@Param("id")Long id);
+//    @Transactional
+//    @Modifying
+//    @Query(value = "update thong_baos set is_deleted=1 WHERE id = :id", nativeQuery = true)
+//    void softDeleted(@Param("id")Long id);
 }

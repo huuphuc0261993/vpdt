@@ -1,4 +1,4 @@
-package com.example.demo.controller.admin;
+package com.example.demo.controller.admin.rest;
 
 import com.example.demo.model.*;
 import com.example.demo.model.view.TaoCongViecView;
@@ -35,7 +35,7 @@ public class TaoCongViecResController {
 
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public HttpStatus create( @RequestBody TaoCongViecView taoCongViecView) {
+    public HttpStatus create(@Valid @RequestBody TaoCongViecView taoCongViecView) {
         System.out.println(taoCongViecView);
         CongViec congViec = new CongViec();
 

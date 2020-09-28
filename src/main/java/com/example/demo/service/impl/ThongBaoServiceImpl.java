@@ -28,8 +28,8 @@ public class ThongBaoServiceImpl implements ThongBaoService {
         return thongBaoRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public void softDeleted(Long id) {
-        thongBaoRepository.softDeleted(id);
-    }
+//    @Override
+//    public void softDeleted(Long id) {
+//        thongBaoRepository.softDeleted(id);
+//    }
 }

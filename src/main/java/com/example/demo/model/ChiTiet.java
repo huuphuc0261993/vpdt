@@ -3,16 +3,19 @@ package com.example.demo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "ChiTiet")
 public class ChiTiet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private int nvChinh;
+    @JsonIgnore
+    private int nvChinh = 0;
 
     @ManyToOne
     @JoinColumn(name = "nhanVien_id")

@@ -1,53 +1,30 @@
-package com.example.demo.model;
+package com.example.demo.model.view;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
-@Table(name = "TinhTrangs")
-public class TinhTrang {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class TaoCongViecView {
     private Long id;
-    private String tinhTrang;
+    private String tenCongViec;
+    private String noiDung;
+    private Date ngayBatDau;
+    private Date ngayKetThuc;
+    private List<Integer> tatCaNhanVien;
+    private int nvChinh;
 
-    @OneToMany(mappedBy = "tinhTrang")
-    @JsonIgnore
-    private List<CongViec> congViecs;
-
-    @JsonIgnore
     private int isDeleted=0;
-    @JsonIgnore
     private LocalDate deleted_at;
-    @JsonIgnore
     private String deleted_by;
-    @JsonIgnore
     private LocalDate  updated_at;
-    @JsonIgnore
     private String updated_by;
-    @JsonIgnore
     private LocalDate created_at;
-    @JsonIgnore
     private String created_by;
 
-
-    public TinhTrang() {
-    }
-
-    public TinhTrang(Long id) {
-        this.id = id;
-    }
-
-    public List<CongViec> getCongViecs() {
-        return congViecs;
-    }
-
-    public void setCongViecs(List<CongViec> congViecs) {
-        this.congViecs = congViecs;
+    public TaoCongViecView() {
     }
 
     public Long getId() {
@@ -58,12 +35,52 @@ public class TinhTrang {
         this.id = id;
     }
 
-    public String getTinhTrang() {
-        return tinhTrang;
+    public String getTenCongViec() {
+        return tenCongViec;
     }
 
-    public void setTinhTrang(String tinhTrang) {
-        this.tinhTrang = tinhTrang;
+    public void setTenCongViec(String tenCongViec) {
+        this.tenCongViec = tenCongViec;
+    }
+
+    public String getNoiDung() {
+        return noiDung;
+    }
+
+    public void setNoiDung(String noiDung) {
+        this.noiDung = noiDung;
+    }
+
+    public Date getNgayBatDau() {
+        return ngayBatDau;
+    }
+
+    public void setNgayBatDau(Date ngayBatDau) {
+        this.ngayBatDau = ngayBatDau;
+    }
+
+    public Date getNgayKetThuc() {
+        return ngayKetThuc;
+    }
+
+    public void setNgayKetThuc(Date ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
+    }
+
+    public List<Integer> getTatCaNhanVien() {
+        return tatCaNhanVien;
+    }
+
+    public void setTatCaNhanVien(List<Integer> tatCaNhanVien) {
+        this.tatCaNhanVien = tatCaNhanVien;
+    }
+
+    public int getNvChinh() {
+        return nvChinh;
+    }
+
+    public void setNvChinh(int nvChinh) {
+        this.nvChinh = nvChinh;
     }
 
     public int getIsDeleted() {
